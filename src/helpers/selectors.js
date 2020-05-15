@@ -15,4 +15,18 @@ export function getAppointmentsForDay(state, day) {
     }
     return appointmentsForDay;
   }
-}
+};
+
+export function getInterview(state, interview) {
+    const keys = Object.keys(state.interviewers);
+    let interviewData = {}; 
+    
+    if (interview) {
+      if (keys.includes(interview.interviewer.toString())) {
+       return interviewData = { "student" : interview.student, "interviewer": state.interviewers[interview.interviewer.toString()]}
+      } 
+    } else {
+      return null;
+    }
+};
+
