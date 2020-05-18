@@ -103,13 +103,13 @@ export default function Appointment(props) {
             {mode === ERROR_SAVE && (
                 <Error
                     message={"Could not save appointment"}
-                    onClose={event => transition(SHOW)}
+                    onClose={() => transition(SHOW)}
                 />
             )}
             {mode === ERROR_DELETE && (
                 <Error 
                     message={"Could not cancel appointment"}
-                    onClose={event => transition(SHOW)}
+                    onClose={() => transition(SHOW)}
                 />
             )}
 
