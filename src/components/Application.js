@@ -7,14 +7,31 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpe
 
 
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
-  
+  const [state, setState] = useState(
+    {
+      day: "Monday",
+      days: [],
+      appointments: {},
+      interviewers: {}
+    });
   const setDay = day => setState({ ...state, day });
+
+  function bookInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    }
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, 
+      appointment).then(() => {setState({
+        ...state,
+        appointments
+      })
+    })
+  }
 
   useEffect(()=> {
     Promise.all([axios ({
@@ -46,6 +63,7 @@ export default function Application(props) {
         time={appointment.time}
         interview={interview}
         interviewers={interviewers}
+        bookInterview={bookInterview}
       />
     );
   });

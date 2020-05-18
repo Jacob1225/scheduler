@@ -32,20 +32,30 @@ export function getInterviewersForDay(state, day) {
         interviewersForDay.push(state.interviewers[id])
       }
   }
+
   return interviewersForDay;
-}
+  }
 };
+
+// export function getInterview(state, interview) {
+//     const keys = Object.keys(state.interviewers);
+//     let interviewData = {...interview}; 
+//     if (interview === null) {
+//       return null;
+//     } else {
+//       if (keys.includes(interview.interviewer.toString())) {
+//        return interviewData = { "student" : interview.student, "interviewer": state.interviewers[interview.interviewer.toString()]}
+//       }
+//     }
+// };
 
 export function getInterview(state, interview) {
-    const keys = Object.keys(state.interviewers);
-    let interviewData = {}; 
-    
-    if (interview) {
-      if (keys.includes(interview.interviewer.toString())) {
-       return interviewData = { "student" : interview.student, "interviewer": state.interviewers[interview.interviewer.toString()]}
-      } 
-    } else {
-      return null;
-    }
-};
-
+  if (interview === null) {
+    return null
+  }
+  const obj = {...interview}
+  const id = obj.interviewer
+  const interviewMatch = Object.values(state.interviewers).filter((interview) => interview.id === id)[0]
+  obj.interviewer = interviewMatch
+  return obj
+}
