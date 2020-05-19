@@ -10,7 +10,37 @@ export default function useApplicationData() {
           interviewers: {}
         });
 
+        console.log(state.days)
+
     const setDay = day => setState({ ...state, day });
+
+    function incrementSpots (id) {
+        for (let dayObj of state.days) {
+            if (dayObj.appointments.includes(id)) {
+                 const daySpots = {
+                    ...dayObj,
+                    spots: dayObj.spots += 1
+                };
+                let daysArray = [...state.days];
+                daysArray[dayObj.id - 1] = daySpots;
+                return daysArray;
+            }
+        }
+    };
+
+    function decrementSpots (id) {
+        for (let dayObj of state.days) {
+            if (dayObj.appointments.includes(id)) {
+                 const daySpots = {
+                    ...dayObj,
+                    spots: dayObj.spots += - 1
+                };
+                let daysArray = [...state.days];
+                daysArray[dayObj.id - 1] = daySpots;
+                return daysArray;
+            }
+        }
+    };
 
     function bookInterview(id, interview) {
         const appointment = {
@@ -21,11 +51,17 @@ export default function useApplicationData() {
           ...state.appointments,
           [id]: appointment
         }
-        return axios.put(`http://localhost:8001/api/appointments/${id}`, 
-          appointment).then(() => {setState({
-            ...state,
-            appointments
-          })
+        const days = decrementSpots(id)
+
+        return axios.put(
+            `http://localhost:8001/api/appointments/${id}`, 
+            appointment
+        ).then(() => {
+            setState({
+                ...state,
+                appointments,
+                days
+            })
         })
       }
 
@@ -38,14 +74,22 @@ export default function useApplicationData() {
           ...state.appointments,
           [id]: appointment
         }
+
+        const days = incrementSpots(id)
+        
     
-        return axios.delete(`http://localhost:8001/api/appointments/${id}`,
-        appointment).then(() => {setState({
-          ...state,
-          appointments
-          })
+        return axios.delete(
+            `http://localhost:8001/api/appointments/${id}`,
+            appointment
+        ).then(() => {
+            setState({
+                ...state,
+                appointments,
+                days
+
+            })
         })
-      }
+    }
 
       useEffect(()=> {
         Promise.all([axios ({
