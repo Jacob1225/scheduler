@@ -90,23 +90,16 @@ export default function useApplicationData() {
             })
         })
     }
-
-      useEffect(()=> {
-        Promise.all([axios ({
-            method: "GET",
-            url: "http://localhost:8001/api/days"
-          }), 
-            axios ({
-            method: "GET",
-            url: "http://localhost:8001/api/appointments"
-          }),
-            axios ({
-              method: "GET",
-              url: "http://localhost:8001/api/interviewers"
-            })])
-          .then((all) => {
-            setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
-          })
+    
+    useEffect(()=> {
+      Promise.all([
+        axios.get('/api/days'),
+        axios.get('/api/appointments'),
+        axios.get('/api/interviewers')
+      ])
+        .then((all) => {
+          setState(prev => ({ days: all[0].data, appointments: all[1].data, interviewers: all[2].data}));
+        })
     }, []);
 
     return {state, setDay, bookInterview, cancelInterview};
