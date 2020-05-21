@@ -28,12 +28,12 @@ export default function Appointment(props) {
     //---------FUNCTION THAT TRANSITIONS TO THE CREATE MODE WHEN CLICKING ON THE ADD BUTTON----------------
     const handleOnAdd = () => {
         transition(CREATE);
-    }
+    };
 
     //----------FUNCTION THAT GOES BACK TO THE PREVIOUS MODE WHEN CLICKING ON THE CANCEL BUTTON-------------
     const handleCancel = () => {
         back();
-    }
+    };
 
     //-----------FUNCTION THAT DISPLAYS THE SAVING ANIMATION AND SAVES THE INTERVIEW INFORMATION WHEN CLICKING ON SAVE---------
     function save(name, interviewer) {
@@ -43,32 +43,31 @@ export default function Appointment(props) {
         };
         transition(SAVING)
         props.bookInterview(props.id, interview)
-        .then(() => transition(SHOW))
-        .catch(() => transition(ERROR_SAVE, true));
-      }
+            .then(() => transition(SHOW))
+            .catch(() => transition(ERROR_SAVE, true));
+    };
 
     //---------FUNCTION THAT DISPLAYS THE CONFIRMATION MESSAGE WHEN A USER WANTS TO DELETE AN INTERVIEW---------------
     function confirmation () {
         transition(CONFIRM);
-    }
+    };
 
     //---------FUNCTION THAT DELETES AND INTERVIEW AND DISPLAYS THE EMPTY MODE UPON DELETE------------------
     function destroy () {
-    transition(DELETING, true)
-    props.cancelInterview(props.id)
-    .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE, true))
-    }
+        transition(DELETING, true)
+        props.cancelInterview(props.id)
+            .then(() => transition(EMPTY))
+            .catch(() => transition(ERROR_DELETE, true))
+    };
       
     //--------FUNCTION THAT TRANSITIONS TO THE EDIT MODE WHEN A USER CLICKS ON THE EDIT BUTTON-------------
     function edit () {  
         transition(EDIT)
-    }
+    };
     //----------RETURN ARTICLE ELEMENT THAT CONTAINS THE APPOINTMENT INFORMATION--------------------
     return (
         <article data-testid="appointment" className="appointment">
-            <Header 
-            time= {props.time}/>
+            <Header time= {props.time}/>
             {mode === EMPTY && (<Empty  onAdd={handleOnAdd} />)}
             {mode === SAVING && (<Status message={"Saving"} />)}
             {mode === DELETING && (<Status message={"Deleting"} />)}
@@ -118,8 +117,6 @@ export default function Appointment(props) {
                     onClose={() => transition(SHOW)}
                 />
             )}
-
-            
         </article>
     )
 };

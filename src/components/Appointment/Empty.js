@@ -1,5 +1,6 @@
 import React from "react";
 
+//-------COMPONENT THAT DEPLAYS THE ADD BUTTON WHEN NO APPOINTMENT IS SET---------
 export default function Empty(props) {
     return (
         <main className="appointment__add">
@@ -11,4 +12,4 @@ export default function Empty(props) {
             />
         </main>
     )
-}
+};

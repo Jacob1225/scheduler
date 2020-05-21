@@ -52,49 +52,49 @@ const fixtures = {
         avatar: "https://i.imgur.com/FK8V841.jpg"
       }
     }
-  };
+};
 
-  //--------MOCK AXIOS MODULE--------------
-  export default {
-    defaults: { baseURL: "" },  
-    get: jest.fn(url => {
-      if (url === "/api/days") {
-        return Promise.resolve({
-          status: 200,
-          statusText: "OK",
-          data: fixtures.days
-        });
-      }
+//--------MOCK AXIOS MODULE--------------
+export default {
+  defaults: { baseURL: "" },  
+  get: jest.fn(url => {
+    if (url === "/api/days") {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.days
+      });
+    }
   
-      if (url === "/api/appointments") {
-        return Promise.resolve({
-            status: 200,
-            statusText: "OK",
-            data: fixtures.appointments
-        });
-      }
+    if (url === "/api/appointments") {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.appointments
+      });
+    }
   
-      if (url === "/api/interviewers") {
-        return Promise.resolve({
-            status: 200,
-            statusText: "OK",
-            data: fixtures.interviewers 
-        });
-      }
-    }),
+    if (url === "/api/interviewers") {
+      return Promise.resolve({
+        status: 200,
+        statusText: "OK",
+        data: fixtures.interviewers 
+      });
+    }
+  }),
 
-    put: jest.fn(id => {
-        `/api/appointments/${id}`
-        return Promise.resolve({
-          status: 204, 
-          statusText: "No Content"
-        });
-      }),
-    delete: jest.fn(id => {
-          `/api/appointments/2`
-          return Promise.resolve({
-            status: 204,
-            statusText: "No Content"
-          });
-    })
-  }
+  put: jest.fn(id => {
+    `/api/appointments/${id}`
+    return Promise.resolve({
+      status: 204, 
+      statusText: "No Content"
+    });
+  }),
+  delete: jest.fn(id => {
+    `/api/appointments/2`
+    return Promise.resolve({
+      status: 204,
+      statusText: "No Content"
+    });
+  })
+};

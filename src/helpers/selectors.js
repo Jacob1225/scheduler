@@ -13,9 +13,9 @@ export function getAppointmentsForDay(state, day) {
     
     for (let id of appointmentIds) {
 
-        if (keys.includes(id.toString())) {
-          appointmentsForDay.push(state.appointments[id])
-        }
+      if (keys.includes(id.toString())) {
+        appointmentsForDay.push(state.appointments[id])
+      }
     }
     return appointmentsForDay;
   }
@@ -28,18 +28,18 @@ export function getInterviewersForDay(state, day) {
     return [];
   
   } else {
-  let interviewerIds = filteredDay[0].interviewers;
-  let interviewersForDay = []
-  const keys = Object.keys(state.interviewers)
+    let interviewerIds = filteredDay[0].interviewers;
+    let interviewersForDay = []
+    const keys = Object.keys(state.interviewers)
   
-  for (let id of interviewerIds) {
+    for (let id of interviewerIds) {
 
       if (keys.includes(id.toString())) {
         interviewersForDay.push(state.interviewers[id])
       }
-  }
+    }
 
-  return interviewersForDay;
+    return interviewersForDay;
   }
 };
 
@@ -54,4 +54,4 @@ export function getInterview(state, interview) {
   obj.interviewer = interviewMatch
   
   return obj
-}
+};

@@ -1,6 +1,6 @@
 import React from "react";
 
-
+//-------COMPONENT THAT DISPLAYS THE TIME SLOT FOR EACH DAY-----------
 export default function Header(props) {
     return (
         <header className="appointment__time">
@@ -8,4 +8,4 @@ export default function Header(props) {
             <hr className="appointment__separator" />
         </header>
     )
-}
+};
