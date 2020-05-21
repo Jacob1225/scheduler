@@ -13,59 +13,49 @@ export default function useApplicationData() {
 
 
   const setDay = day => setState({ ...state, day });
+
+  //----------FUNCTION THAT GETS THE SPOTS REMAINING FOR THE DAY--------------
+  function spotsRemaining(state) {
+    let spotsAvailable = [];
+    let totalDays = state.days;
+    for (let day of totalDays) {
+      let appointmentSlots = 0;
+      for (let singleDay of day.appointments) {
+        const currentAppointment = state.appointments[singleDay]
+        if (currentAppointment.interview === null) {
+          appointmentSlots++;
+        }
+      }
+      spotsAvailable.push(appointmentSlots)
+    }
+    return spotsAvailable;
+  };
+
+  //---------FUNCTION THAT UPDATES THE SPOTS REMAINING FOR EACH DAY----------
+  function updateSpots(state) {
+    const spots = spotsRemaining(state)
+    let newDays = []
+    for (let dayIndex in spots) {
+      newDays.push({ ...state.days[dayIndex], spots: spots[dayIndex]})
+    }
+    return { ...state, days: newDays}
+  }
     
-  //------------FUNCTION THAT INCREMENTS THE SPOTS REMAINING FOR THE DAY BY 1 WHEN AN INTERVIEW IS REMOVED
-  function incrementSpots (id) {
-    for (let dayObj of state.days) {
-      if (dayObj.appointments.includes(id)) {
-        const daySpots = {
-          ...dayObj,
-          spots: dayObj.spots += 1
-        };
-        let daysArray = [...state.days];
-        daysArray[dayObj.id - 1] = daySpots;
-        return daysArray;
-      }
-    }
-  };
-
-  //----------FUNCTION THAT DECREMENTS THE SPOTS REMAINING FOR THE DAY BY 1 WHEN AN INTERVIEW IS ADDED 
-  function decrementSpots (id) {
-    for (let dayObj of state.days) {
-      if (dayObj.appointments.includes(id)) {
-        const daySpots = {
-          ...dayObj,
-          spots: dayObj.spots += - 1
-        };
-        let daysArray = [...state.days];
-        daysArray[dayObj.id - 1] = daySpots;
-        return daysArray;
-      }
-    }
-  };
-
   //--------FUNCTION THAT UPDATES THE CURRENT STATE WITH THE INTERVIEW INFORMATION WHEN ONE IS ADDED-------------
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
-    }
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    }
-    const days = decrementSpots(id)
-
+    };
+   
     return axios.put(
       `/api/appointments/${id}`, 
       appointment
     ).then(() => {
-      setState({
-        ...state,
-        appointments,
-        days
-      })
-    })
+      setState(state => updateSpots({...state, appointments: {
+        ...state.appointments,
+        [id]: appointment
+      }}))})
   };
   
   //--------FUNCTION THAT UPDATES THE STATE SETTING THE INTERVIEW TO NULL WHEN ONE IS REMOVED--------------
@@ -78,19 +68,15 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
-
-    const days = incrementSpots(id)
         
     return axios.delete(
       `/api/appointments/${id}`,
       appointment
     ).then(() => {
-      setState({
-        ...state,
-        appointments,
-        days
-      })
-    })
+      setState(state => updateSpots({...state, appointments: {
+        ...state.appointments,
+        [id]: appointment
+      }}))})
   };
     
   //-----------USEEFFECT THAT MAKES 3 AXIOS GET REQUESTS UPON STARTING THE APPLICATION TO RETRIEVE THE DATA TO LOAD--------

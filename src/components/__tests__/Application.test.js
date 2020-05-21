@@ -41,7 +41,7 @@ describe ("Application", () => {
     expect(getByText(day, "no spots remaining")).toBeInTheDocument();
 
   });
-  xit("loads data, cancel an interview and increases the spots remaining for Monday by 1", async () => {
+  it("loads data, cancel an interview and increases the spots remaining for Monday by 1", async () => {
     const {container, debug} = render(<Application />);
     
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -92,6 +92,55 @@ describe ("Application", () => {
     );
     expect(getByText(day, "1 spot remaining")).toBeInTheDocument();
   })
+
+  it("shows the save error when failing to save an appointment", async() => {
+    axios.put.mockRejectedValueOnce();
+    const { container, debug } = render(<Application/>);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"))
+  
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    )
+    fireEvent.click(getByAltText(appointment, "Edit"));
+  
+    expect(getByPlaceholderText(appointment, "Enter Student Name")).toBeInTheDocument();
+ 
+    fireEvent.change(getByPlaceholderText(appointment, "Enter Student Name"), {
+      target: { value: "Jacob Carlone" }
+    });
+    
+    fireEvent.click(getByText(appointment, "Save"));
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
+  
+    await waitForElement(() => getByText(appointment, "Could not save appointment"));
+
+    expect(getByText(appointment, "Could not save appointment")).toBeInTheDocument();
+   
+  });
+
+  it("shows the delete error when failing to delete an existing appointment", async() => {
+    axios.delete.mockRejectedValueOnce();
+    const {container, debug} = render(<Application />);
+    
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+    
+    const appointment = getAllByTestId(container, "appointment").find(
+      appointment => queryByText(appointment, "Archie Cohen")
+    );
+    fireEvent.click(queryByAltText(appointment, "Delete"));
+  
+    expect(getByText(appointment, "Are you sure you want to delete?")).toBeInTheDocument();
+
+    fireEvent.click(queryByText(appointment, "Confirm"))
+
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+  
+    await waitForElement(() => getByText(appointment, "Could not cancel appointment"));
+
+    expect(getByText(appointment, "Could not cancel appointment")).toBeInTheDocument();
+
+  });
 
 });
 
