@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 
+//----------CUSTOM HOOK THAT EXPORTS THE DATA USED BY THE APPLICATION COMPONENT--------------------
 export default function useApplicationData() {
     const [state, setState] = useState(
         {
@@ -12,7 +13,8 @@ export default function useApplicationData() {
 
 
     const setDay = day => setState({ ...state, day });
-
+    
+    //------------FUNCTION THAT INCREMENTS THE SPOTS REMAINING FOR THE DAY BY 1 WHEN AN INTERVIEW IS REMOVED
     function incrementSpots (id) {
         for (let dayObj of state.days) {
             if (dayObj.appointments.includes(id)) {
@@ -27,6 +29,7 @@ export default function useApplicationData() {
         }
     };
 
+    //----------FUNCTION THAT DECREMENTS THE SPOTS REMAINING FOR THE DAY BY 1 WHEN AN INTERVIEW IS ADDED 
     function decrementSpots (id) {
         for (let dayObj of state.days) {
             if (dayObj.appointments.includes(id)) {
@@ -41,6 +44,7 @@ export default function useApplicationData() {
         }
     };
 
+    //--------FUNCTION THAT UPDATES THE CURRENT STATE WITH THE INTERVIEW INFORMATION WHEN ONE IS ADDED-------------
     function bookInterview(id, interview) {
         const appointment = {
           ...state.appointments[id],
@@ -64,6 +68,7 @@ export default function useApplicationData() {
         })
       }
 
+      //--------FUNCTION THAT UPDATES THE STATE SETTING THE INTERVIEW TO NULL WHEN ONE IS REMOVED--------------
       function cancelInterview(id) {
         const appointment = {
           ...state.appointments[id],
@@ -90,6 +95,7 @@ export default function useApplicationData() {
         })
     }
     
+    //-----------USEEFFECT THAT MAKES 3 AXIOS GET REQUESTS UPON STARTING THE APPLICATION TO RETRIEVE THE DATA TO LOAD--------
     useEffect(()=> {
       Promise.all([
         axios.get('/api/days'),

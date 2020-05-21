@@ -1,7 +1,11 @@
+//---------HELPER FUNCTIONS TO BE USED IN THE APPLICATION COMPONENT ------------
+
+//--------FUNCTION THAT RETURNS THE APPOINTMENTS FOR A SPECIFIC DAY THAT IS PASSED AS AN ARGUMENT------------
 export function getAppointmentsForDay(state, day) {
     const filteredDay = state.days.filter(dayObj => day === dayObj.name);  
     if (filteredDay.length === 0) {
       return [];
+    
     } else {
     let appointmentIds = filteredDay[0].appointments;
     let appointmentsForDay = []
@@ -17,10 +21,12 @@ export function getAppointmentsForDay(state, day) {
   }
 };
 
+//----------FUNCTION THAT RETURNS THE INTERVIEWS FOR A SPECIFIC DAY THAT IS PASSED AS AN ARGUMENT------------
 export function getInterviewersForDay(state, day) {
   const filteredDay = state.days.filter(dayObj => day === dayObj.name);  
   if (filteredDay.length === 0) {
     return [];
+  
   } else {
   let interviewerIds = filteredDay[0].interviewers;
   let interviewersForDay = []
@@ -37,18 +43,7 @@ export function getInterviewersForDay(state, day) {
   }
 };
 
-// export function getInterview(state, interview) {
-//     const keys = Object.keys(state.interviewers);
-//     let interviewData = {...interview}; 
-//     if (interview === null) {
-//       return null;
-//     } else {
-//       if (keys.includes(interview.interviewer.toString())) {
-//        return interviewData = { "student" : interview.student, "interviewer": state.interviewers[interview.interviewer.toString()]}
-//       }
-//     }
-// };
-
+//---------FUNCTION THAT RETURNS AN OBJECT WITH THE INTERVIEWER DATA----------
 export function getInterview(state, interview) {
   if (interview === null) {
     return null
@@ -57,5 +52,6 @@ export function getInterview(state, interview) {
   const id = obj.interviewer
   const interviewMatch = Object.values(state.interviewers).filter((interview) => interview.id === id)[0]
   obj.interviewer = interviewMatch
+  
   return obj
 }

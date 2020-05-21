@@ -2,6 +2,7 @@ import React from 'react';
 import "components/InterviewerListItem.scss";
 const classnames = require('classnames');
 
+//------------COMPONENT THAT DISPLAYS THE INFORMATION FOR AN INDIVIDUAL INTERVIEWER & IS USED BY THE INTERVIEWLIST COMPONENT -----
 export default function InterviewerListItem(props) {
     const interviewerClass = classnames(
         "interviewers__item",

@@ -4,6 +4,7 @@ import { render } from '@testing-library/react';
 
 const classnames = require('classnames');
 
+//-------COMPONENT THAT DISPLAYS THE INFORMATION FOR THAT DAY IN THE SIDEBAR-------------
 export default function DayListItem(props) {
     const dayClass = classnames(
         "day-list__item", 
@@ -11,11 +12,15 @@ export default function DayListItem(props) {
         "day-list__item--full": !props.spots
 
     });
+
+    //------FUNCTION THAT FORMATS THE SPOTS REMAINING FOR THAT DAY IN THE SIDEBAR---------
     function formatSpots(spots) {
         if (spots === 0) {
             return (`no spots remaining`);
+        
         } else if (spots === 1) {
             return (`${spots} spot remaining`);
+        
         } else {
             return (`${spots} spots remaining`);
         }

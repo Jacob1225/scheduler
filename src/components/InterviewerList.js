@@ -8,6 +8,7 @@ InterviewerList.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
+//-------COMPONENT THAT LOOPS THROUGH THE INTERVIEWERLISTITEM TO DISPLAY THE INTERVIEWERS------------
 export default function InterviewerList(props) {
     return (
         <section className="interviewers">

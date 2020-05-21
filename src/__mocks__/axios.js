@@ -1,3 +1,4 @@
+//--------FIXTURE DATA THAT WILL BE USED BY THE MOCK AXIOS MODULE TO RUN OUR APPLICATION TESTS----------
 const fixtures = {
     days: [
       {
@@ -53,6 +54,7 @@ const fixtures = {
     }
   };
 
+  //--------MOCK AXIOS MODULE--------------
   export default {
     defaults: { baseURL: "" },  
     get: jest.fn(url => {

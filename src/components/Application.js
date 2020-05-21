@@ -5,7 +5,7 @@ import "components/Application.scss";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay} from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
 
-
+//--------APPLICATION COMPONENT THAT IS THE TOP LEVEL COMPONENT FOR THE APP---------------------
 export default function Application(props) {
   const {
     state, 
@@ -18,7 +18,8 @@ export default function Application(props) {
   const interviewers = getInterviewersForDay(state, state.day)
   const appointments = getAppointmentsForDay(state, state.day).map(
     appointment => {
-
+    
+    //------RETURNING THE DIFFERENT APPOINTMENTS FOR EACH DAY------------------
     return (
       <Appointment
         key={appointment.id}
@@ -31,6 +32,7 @@ export default function Application(props) {
     );
   });
   
+  //--------------RETURNING THE HTML THAT INCLUDES ALL THE CHILD COMPONENTS OF THE APPLICATION-----------
   return (
     <main className="layout">
       <section className="sidebar">
