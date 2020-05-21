@@ -1,5 +1,5 @@
 # Interview Scheduler
-Scheduler is a simple, single-page app that allows users to keep track of their interviews. It is very user friendly and very handy for companies or indviduals on the job hunt!
+Scheduler is a simple, react single-page app that allows users to keep track of their interviews. It is very user friendly and very handy for companies or indviduals on the job hunt!
 
 The goal was to practice HTML, CSS, JS, jQuery and AJAX front-end skills, and Node, Express and MongoDB back-end skills.
 
