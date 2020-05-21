@@ -4,28 +4,28 @@ Scheduler is a simple, single-page app that allows users to keep track of their 
 The goal was to practice HTML, CSS, JS, jQuery and AJAX front-end skills, and Node, Express and MongoDB back-end skills.
 
 ## Final Product
-!["Main page view for desktops"](https://github.com/Jacob1225/tweeter/blob/master/docs/Desktop-view.png?raw=true)
-!["Main page view for mobile"](https://github.com/Jacob1225/tweeter/blob/master/docs/Mobile-view.png?raw=true)
-!["New tweet form"](https://github.com/Jacob1225/tweeter/blob/master/docs/New-Tweet.png?raw=true)
+!["Page for creating an interview"](https://github.com/Jacob1225/scheduler/blob/master/docs/Create-appointment.png?raw=true)
+!["Page for editing an interview"](https://github.com/Jacob1225/scheduler/blob/master/docs/Edit-appointment.png?raw=true)
+!["Page for deleting an interview"](https://github.com/Jacob1225/scheduler/blob/master/docs/Delete-appointment.png?raw=true)
 
-## Setup
+## Getting Started
 
-Install dependencies with `npm install`.
+1. Fork this repository, then clone your fork of this repository.
+2. Install dependencies using the `npm install` command.
+3. Start the web development server using the `npm start` command. The app will be served at <http://localhost:8000/>.
+4. Go to <http://localhost:8000/> in your browser.
+5. Most importantly have fun using interview scheduler!
 
-## Running Webpack Development Server
+## Dependencies
 
-```sh
-npm start
-```
+- axios: 0.19.2,
+- classnames": 2.2.6,
+- jest: 24.7.1,
+- normalize.css: 8.0.1,
+- react": 16.9.0,
+- react-dom: 16.9.0,
+- react-scripts: 3.0.0
 
-## Running Jest Test Framework
 
-```sh
-npm test
-```
 
-## Running Storybook Visual Testbed
 
-```sh
-npm run storybook
-```
