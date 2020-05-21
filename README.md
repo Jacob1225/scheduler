@@ -19,7 +19,7 @@ The goal was to practice HTML, CSS, JS, jQuery and AJAX front-end skills, and No
 ## Dependencies
 
 - axios: 0.19.2,
-- classnames": 2.2.6,
+- classnames: 2.2.6,
 - jest: 24.7.1,
 - normalize.css: 8.0.1,
 - react": 16.9.0,
