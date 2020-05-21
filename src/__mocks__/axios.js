@@ -79,5 +79,20 @@ const fixtures = {
             data: fixtures.interviewers 
         });
       }
+    }),
+
+    put: jest.fn(id => {
+        `/api/appointments/${id}`
+        return Promise.resolve({
+          status: 204, 
+          statusText: "No Content"
+        });
+      }),
+    delete: jest.fn(id => {
+          `/api/appointments/2`
+          return Promise.resolve({
+            status: 204,
+            statusText: "No Content"
+          });
     })
   }
