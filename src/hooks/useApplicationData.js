@@ -16,19 +16,19 @@ export default function useApplicationData() {
 
   //----------FUNCTION THAT GETS THE SPOTS REMAINING FOR THE DAY--------------
   function spotsRemaining(state) {
-    let spotsAvailable = [];
+    let spotsLeft = [];
     let totalDays = state.days;
     for (let day of totalDays) {
       let appointmentSlots = 0;
-      for (let singleDay of day.appointments) {
-        const currentAppointment = state.appointments[singleDay]
+      for (let currentDay of day.appointments) {
+        const currentAppointment = state.appointments[currentDay]
         if (currentAppointment.interview === null) {
           appointmentSlots++;
         }
       }
-      spotsAvailable.push(appointmentSlots)
+      spotsLeft.push(appointmentSlots)
     }
-    return spotsAvailable;
+    return spotsLeft;
   };
 
   //---------FUNCTION THAT UPDATES THE SPOTS REMAINING FOR EACH DAY----------
@@ -68,7 +68,7 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
-        
+
     return axios.delete(
       `/api/appointments/${id}`,
       appointment
